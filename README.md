@@ -3,7 +3,7 @@
 ---
 
 ````md
-# 🍹 Kolekcja ulubionych przepisów do koktajli
+# 🍹 Kolekcja ulubionych przepisów do koktajli 
 
 ## 📝 Opis projektu
 
@@ -123,7 +123,7 @@ docker compose version
 ### 1) Sklonuj repozytorium
 
 ```bash
-git clone https://github.com/hwanlix/Kolekcja-ulubionych-przepis-w-do-koktajli.git
+git clone https://github.com/hwanlix/menu_docker.git
 cd Kolekcja-ulubionych-przepis-w-do-koktajli
 ```
 
@@ -266,3 +266,4 @@ http://localhost:PORT
 * przycisk „Dodaj do ulubionych”
 
 ````
+
