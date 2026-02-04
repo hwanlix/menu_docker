@@ -46,7 +46,7 @@ Projekt został przygotowany zgodnie z wymaganiami przedmiotu **Tworzenie aplika
 ## 📁 Struktura projektu
 
 ```bash
-Kolekcja-ulubionych-przepisów-do-koktajli/
+menu_docker/
 ├── controllers/               # Kontrolery obsługujące logikę biznesową
 │   ├── przepisController.js   # Logika związana z przepisami
 │   └── userController.js      # Logika związana z użytkownikami
@@ -124,7 +124,7 @@ docker compose version
 
 ```bash
 git clone https://github.com/hwanlix/menu_docker.git
-cd Kolekcja-ulubionych-przepis-w-do-koktajli
+cd menu_docker
 ```
 
 ### 2) Skonfiguruj plik `.env`
@@ -266,5 +266,6 @@ http://localhost:PORT
 * przycisk „Dodaj do ulubionych”
 
 ````
+
 
 
