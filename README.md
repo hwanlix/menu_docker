@@ -133,7 +133,7 @@ Utwórz plik `.env` w katalogu głównym projektu i uzupełnij:
 
 ```env
 PORT=3000
-SESSION_KEY=super_tajny_klucz
+SECRET_KEY=supersecretkey123
 MONGODB_URI=mongodb://mongo:27017/koktajle
 ```
 
@@ -266,4 +266,5 @@ http://localhost:PORT
 * przycisk „Dodaj do ulubionych”
 
 ````
+
 
