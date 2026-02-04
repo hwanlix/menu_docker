@@ -1,24 +1,28 @@
-
-
 ---
 
 ````md
-# 🍹 Kolekcja ulubionych przepisów do koktajli 
+# 🍹 Kolekcja ulubionych przepisów do koktajli (menu_docker)
 
 ## 📝 Opis projektu
+Aplikacja webowa typu społecznościowego do dzielenia się przepisami na koktajle. Użytkownicy mogą tworzyć, edytować i przeglądać przepisy, oceniać je, komentować oraz zapisywać swoje ulubione pozycje.
 
-Aplikacja społecznościowa do dzielenia się przepisami na koktajle. Pozwala użytkownikom tworzyć, edytować i przeglądać
-przepisy, oceniać je oraz zapisywać swoje ulubione. Projekt powstał z myślą o pasjonatach domowego miksowania i
-kulinariów.
-
-Projekt został przygotowany zgodnie z wymaganiami przedmiotu **Tworzenie aplikacji dla środowisk chmurowych** – aplikacja uruchamiana jest w całości za pomocą **Docker Compose**.
+Projekt został przygotowany zgodnie z wymaganiami przedmiotu **Tworzenie aplikacji dla środowisk chmurowych** – uruchomienie aplikacji wraz z bazą danych odbywa się w całości poprzez **Docker Compose**.
 
 ---
 
 ## 👩‍🎓 Autor
+- **Imię i nazwisko:** Aliaksandra Kurlovich  
+- **Nr albumu:** 52301  
 
-- **Imię i nazwisko:** Aliaksandra Kurlovich
-- **Nr albumu:** 52301
+---
+
+## 🎯 Cel projektu (wymagania przedmiotu)
+Projekt demonstruje:
+- uruchomienie aplikacji webowej w kontenerze Docker,
+- uruchomienie bazy danych MongoDB w osobnym kontenerze,
+- komunikację aplikacji z bazą danych w sieci Docker (`mongo` jako host),
+- konfigurację aplikacji przez zmienne środowiskowe (`.env`),
+- automatyczne uruchomienie pełnego środowiska komendą `docker compose up`.
 
 ---
 
@@ -26,20 +30,35 @@ Projekt został przygotowany zgodnie z wymaganiami przedmiotu **Tworzenie aplika
 
 ### 👤 Użytkownicy
 - Rejestracja i logowanie
-- Edycja danych profilowych
-- Obsługa sesji, autoryzacja i middleware
+- Obsługa sesji użytkownika (express-session)
+- Middleware autoryzacji
+- Edycja profilu
 
 ### 🍸 Przepisy
-- Dodawanie przepisów (nazwa, opis, składniki, zdjęcie, instrukcja)
+- Dodawanie przepisu: nazwa, opis, składniki, instrukcja, tagi, zdjęcie
 - Edycja i usuwanie własnych przepisów
-- Przeglądanie listy koktajli i szczegółowych widoków
-- Zapisywanie ulubionych przepisów
-- Komentowanie i ocenianie
+- Lista przepisów oraz widoki szczegółowe
+- Ulubione przepisy
+- Komentarze i oceny (1–5)
 
 ### 🖥️ Interfejs
-- Responsywny wygląd dopasowany do ekranów mobilnych
-- Przejrzysta nawigacja
-- System powiadomień i komunikatów flash
+- Responsywny wygląd
+- Nawigacja po aplikacji
+- Komunikaty flash
+
+---
+
+## 🧰 Wykorzystane technologie i biblioteki
+- **Node.js** + **Express**
+- **MongoDB** + **Mongoose**
+- **EJS** (szablony)
+- bcryptjs (hashowanie haseł)
+- express-session (sesje)
+- connect-flash (komunikaty)
+- multer (upload zdjęć)
+- dotenv (zmienne środowiskowe)
+- method-override
+- express-ejs-layouts
 
 ---
 
@@ -47,57 +66,40 @@ Projekt został przygotowany zgodnie z wymaganiami przedmiotu **Tworzenie aplika
 
 ```bash
 menu_docker/
-├── controllers/               # Kontrolery obsługujące logikę biznesową
-│   ├── przepisController.js   # Logika związana z przepisami
-│   └── userController.js      # Logika związana z użytkownikami
+├── controllers/               # Logika aplikacji
+│   ├── przepisController.js
+│   └── userController.js
 │
-├── middleware/                # Własne middleware aplikacji
-│   ├── auth.js                # Middleware autoryzacji użytkownika
-│   └── upload.js              # Obsługa przesyłania zdjęć (multer)
+├── middleware/                # Middleware
+│   ├── auth.js                # Autoryzacja
+│   └── upload.js              # Upload zdjęć (multer)
 │
-├── models/                    # Modele danych dla MongoDB (Mongoose)
-│   ├── Przepis.js             # Model przepisu koktajlu
-│   └── User.js                # Model użytkownika
+├── models/                    # Modele MongoDB (Mongoose)
+│   ├── Przepis.js
+│   └── User.js
 │
-├── public/                    # Statyczne pliki (CSS, JS, obrazy)
+├── public/                    # Pliki statyczne
+├── routes/                    # Routing
+│   ├── przepisy.js
+│   └── users.js
 │
-├── routes/                    # Definicje tras
-│   ├── przepisy.js            # Routing związany z przepisami
-│   └── users.js               # Routing związany z użytkownikami
+├── views/                     # Widoki EJS
+│   ├── layouts/
+│   ├── partials/
+│   ├── przepisy/
+│   └── users/
 │
-├── screenshots/               # Zrzuty ekranu aplikacji do README
-│
-├── views/                     # Szablony EJS do renderowania widoków
-│   ├── layouts/               # Układy bazowe HTML
-│   ├── partials/              # Header, footer, komunikaty flash
-│   ├── przepisy/              # Widoki listy i detali przepisów
-│   └── users/                 # Widoki rejestracji, logowania, profilu
-│
+├── screenshots/               # Zrzuty ekranu do README
 ├── .env                       # Zmienne środowiskowe
-├── Dockerfile                 # Konfiguracja kontenera aplikacji
-├── docker-compose.yml         # Konfiguracja uruchomienia aplikacji + bazy
-├── app.js                     # Główny plik aplikacji Express
-└── package.json               # Plik konfiguracyjny projektu
+├── Dockerfile                 # Obraz aplikacji Node.js
+├── docker-compose.yml         # Uruchomienie app + MongoDB
+├── app.js                     # Główny plik Express
+└── package.json
 ````
 
 ---
 
-## 🧰 Wykorzystane biblioteki
-
-* express - framework webowy dla Node.js
-* mongoose - ODM (Object Data Modeling) dla MongoDB
-* ejs - silnik szablonów
-* bcryptjs - hashowanie haseł
-* express-session - zarządzanie sesjami
-* connect-flash - komunikaty flash
-* multer - obsługa przesyłania plików
-* dotenv - zarządzanie zmiennymi środowiskowymi
-* method-override - obsługa metod HTTP
-* express-ejs-layouts - układ szablonów EJS
-
----
-
-# 🐳 Uruchomienie projektu przez Docker (zalecane)
+# 🐳 Uruchomienie projektu przez Docker Compose (zalecane)
 
 ## ✅ Wymagania
 
@@ -105,11 +107,7 @@ menu_docker/
 * Docker Compose
 * Docker Desktop (Windows/macOS)
 
-### 📌 Instalacja Docker Desktop (Windows/macOS)
-
-1. Pobierz i zainstaluj **Docker Desktop** ze strony Docker.
-2. Uruchom Docker Desktop.
-3. Sprawdź czy Docker działa:
+Sprawdzenie instalacji:
 
 ```bash
 docker --version
@@ -118,18 +116,18 @@ docker compose version
 
 ---
 
-## 🛠️ Instalacja i uruchomienie
-
-### 1) Sklonuj repozytorium
+## 1) Klonowanie repozytorium
 
 ```bash
 git clone https://github.com/hwanlix/menu_docker.git
 cd menu_docker
 ```
 
-### 2) Skonfiguruj plik `.env`
+---
 
-Utwórz plik `.env` w katalogu głównym projektu i uzupełnij:
+## 2) Konfiguracja `.env`
+
+W katalogu głównym projektu utwórz plik `.env`:
 
 ```env
 PORT=3000
@@ -138,9 +136,13 @@ MONGODB_URI=mongodb://mongo:27017/koktajle
 NODE_ENV=production
 ```
 
-> W Dockerze host bazy danych to `mongo` (nazwa serwisu w docker-compose), a nie `localhost`.
+> Ważne: w środowisku Docker host bazy danych to **mongo** (nazwa serwisu w docker-compose), a nie `localhost`.
 
-### 3) Uruchom aplikację (pełne środowisko)
+---
+
+## 3) Uruchomienie środowiska
+
+Uruchom aplikację wraz z bazą danych:
 
 ```bash
 docker compose up --build
@@ -162,7 +164,7 @@ Uruchomienie w tle:
 docker compose up -d --build
 ```
 
-Podgląd logów:
+Logi kontenerów:
 
 ```bash
 docker compose logs -f
@@ -174,7 +176,7 @@ Zatrzymanie kontenerów:
 docker compose down
 ```
 
-Zatrzymanie + usunięcie wolumenów (reset bazy danych):
+Reset bazy danych (usunie dane MongoDB):
 
 ```bash
 docker compose down -v
@@ -182,92 +184,77 @@ docker compose down -v
 
 ---
 
-# 💻 Uruchomienie lokalne (bez Dockera)
+# 💻 Uruchomienie lokalne (opcjonalnie, bez Dockera)
 
 ## ✅ Wymagania
 
-* Node.js v14 lub nowszy
-* npm v6 lub nowszy
+* Node.js v14+ (zalecane v18)
+* npm
 * MongoDB lokalnie lub MongoDB Atlas
-* Express.js v4.21.2
 
-### 🛠️ Instalacja
+## Instalacja zależności
 
 ```bash
 npm install
 ```
 
-Uzupełnij `.env`:
+## Uruchomienie
 
-```env
-PORT=3000
-SESSION_KEY=super_tajny_klucz
-MONGODB_URI=mongodb://localhost:27017/koktajle
+Tryb deweloperski:
+
+```bash
+npm run dev
 ```
 
-Uruchom:
+Tryb produkcyjny:
 
-* Tryb deweloperski:
+```bash
+npm start
+```
 
-  ```bash
-  npm run dev
-  ```
-* Tryb produkcyjny:
-
-  ```bash
-  npm start
-  ```
-
-Aplikacja będzie dostępna pod adresem:
+Aplikacja:
 
 ```text
-http://localhost:PORT
+http://localhost:3000
 ```
+
+> Przy uruchomieniu lokalnym zmienna `MONGODB_URI` powinna wskazywać na `localhost`, np.:
+> `mongodb://localhost:27017/koktajle`
 
 ---
 
-## 🧪 Przykładowe dane wejściowe
+## 🧪 Przykładowe dane testowe
 
-### 👤 Rejestracja:
+### 👤 Rejestracja
 
-* Nazwa użytkownika - `test`
-* Email - `test@test.test`
-* Hasło - `testtest` (min. 6 znaków)
-* Potwierdź hasło
+* Nazwa użytkownika: `test`
+* Email: `test@test.test`
+* Hasło: `testtest` (min. 6 znaków)
 
-### 🔑 Logowanie:
+### 🔑 Logowanie
 
-* Email - `test@test.test`
-* Hasło - `testtest`
+* Email: `test@test.test`
+* Hasło: `testtest`
 
-### 🍸 Dodawanie przepisu:
+### 🍸 Dodawanie przepisu
 
 * Nazwa przepisu
-* Czas przygotowania (5–60 min co 5)
+* Czas przygotowania (5–60 min)
 * Składniki: nazwa + ilość + jednostka (możliwość dodania wielu)
-* Instrukcje przygotowania
-* Dodanie pliku obrazu
-* Dodanie tagów
+* Instrukcja przygotowania
+* Zdjęcie
+* Tagi
 
-### ⭐ Dodawanie komentarzy:
+### ⭐ Komentarze i oceny
 
 * Komentarz (opcjonalnie)
-* Ocena (1–5 gwiazdek)
+* Ocena 1–5
 
-### 👤 Edycja profilu:
+### ❤️ Ulubione
 
-* Nazwa użytkownika
-* Email
-* Obecne hasło
-* Nowe hasło (min. 6 znaków)
-* Potwierdź nowe hasło
+* Przycisk „Dodaj do ulubionych”
 
-### ❤️ Ulubione:
+```
 
-* przycisk „Dodaj do ulubionych”
-
-````
-
-
-
+---
 
