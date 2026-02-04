@@ -196,6 +196,7 @@ docker compose down -v
 
 ```bash
 npm install
+npm.cmd i
 ```
 
 ## Uruchomienie
@@ -257,5 +258,6 @@ http://localhost:3000
 ```
 
 ---
+
 
 
