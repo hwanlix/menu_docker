@@ -135,6 +135,7 @@ Utwórz plik `.env` w katalogu głównym projektu i uzupełnij:
 PORT=3000
 SECRET_KEY=supersecretkey123
 MONGODB_URI=mongodb://mongo:27017/koktajle
+NODE_ENV=production
 ```
 
 > W Dockerze host bazy danych to `mongo` (nazwa serwisu w docker-compose), a nie `localhost`.
@@ -266,6 +267,7 @@ http://localhost:PORT
 * przycisk „Dodaj do ulubionych”
 
 ````
+
 
 
 
